@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="generator" nsURI="http://www.robocode.xtext/Generator" nsPrefix="generator">
+  <eClassifiers xsi:type="ecore:EClass" name="Arena">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="robot" upperBound="-1"
+        eType="#//Robot" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Robot">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eventsHandled" upperBound="-1"
+        eType="#//Event" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="runActions" upperBound="-1"
+        eType="#//Action" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="infiniteLoopActions" upperBound="-1"
+        eType="#//Action" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Event">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="eventType" eType="#//EventType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//Action" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Action">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isSetter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isGetter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameters" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdvancedRobot" eSuperTypes="#//Robot"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RangeControlRobot" eSuperTypes="#//Robot"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="EventType">
+    <eLiterals name="BulletHit" literal="BulletHit"/>
+    <eLiterals name="BulletMissed" value="1" literal="BulletMissed"/>
+    <eLiterals name="Death" value="2" literal="Death"/>
+    <eLiterals name="HitByBullet" value="3" literal="HitByBullet"/>
+    <eLiterals name="HitRobot" value="4" literal="HitRobot"/>
+    <eLiterals name="HitWall" value="5" literal="HitWall"/>
+    <eLiterals name="ScannedRobot" value="6" literal="ScannedRobot"/>
+    <eLiterals name="Win" value="7" literal="Win"/>
+    <eLiterals name="Custom" value="8" literal="Custom"/>
+  </eClassifiers>
+</ecore:EPackage>

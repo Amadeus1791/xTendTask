@@ -1,0 +1,69 @@
+grammar xtext.robocode.Generator with org.eclipse.xtext.common.Terminals
+
+generate generator "http://www.robocode.xtext/Generator"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+Arena:
+	'Arena'
+	'{'
+		('robot' '{' robot+=Robot ( "," robot+=Robot)* '}' )?
+	'}';
+
+Robot returns Robot:
+	Robot_Impl | AdvancedRobot_Impl | RangeControlRobot;
+
+
+
+Robot_Impl returns Robot:
+	{Robot}
+	'Robot'
+	name=EString
+	'{'
+		('eventsHandled' '(' eventsHandled+=Event ( "," eventsHandled+=Event)* ')' )?
+		('runActions' '{' runActions+=Action ( "," runActions+=Action)* '}' )?
+		('infiniteLoopActions' '{' infiniteLoopActions+=Action ( "," infiniteLoopActions+=Action)* '}' )?
+	'}';
+
+Event returns Event:
+	{Event}
+	'Event'
+	'{'
+		('eventType' eventType=EventType)?
+		('actions' '{' actions+=Action ( "," actions+=Action)* '}' )?
+	'}';
+
+EString returns ecore::EString:
+	STRING | ID;
+
+Action returns Action:
+	'Action'
+	'{'
+		('comment' comment=EString)?
+		(isSetter ?= "setter" | isGetter ?= "getter")?
+		'functionName' functionName=EString
+		('parameters' parameters=EString)?
+	'}';
+
+AdvancedRobot_Impl returns AdvancedRobot:
+	{AdvancedRobot}
+	'AdvancedRobot'
+	name=EString
+	'{'
+		('eventsHandled' '(' eventsHandled+=Event ( "," eventsHandled+=Event)* ')' )?
+		('runActions' '{' runActions+=Action ( "," runActions+=Action)* '}' )?
+		('infiniteLoopActions' '{' infiniteLoopActions+=Action ( "," infiniteLoopActions+=Action)* '}' )?
+	'}';
+
+RangeControlRobot returns RangeControlRobot:
+	{RangeControlRobot}
+	'RangeControlRobot'
+	name=EString
+	'{'
+		('eventsHandled' '(' eventsHandled+=Event ( "," eventsHandled+=Event)* ')' )?
+		('runActions' '{' runActions+=Action ( "," runActions+=Action)* '}' )?
+		('infiniteLoopActions' '{' infiniteLoopActions+=Action ( "," infiniteLoopActions+=Action)* '}' )?
+	'}';
+
+enum EventType returns EventType:
+				BulletHit = 'BulletHit' | BulletMissed = 'BulletMissed' | Death = 'Death' | HitByBullet = 'HitByBullet' | HitRobot = 'HitRobot' | HitWall = 'HitWall' | ScannedRobot = 'ScannedRobot' | Win = 'Win' | Custom = 'Custom';
